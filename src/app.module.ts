@@ -4,6 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { User } from './auth/entities/user.entity';
 import { RefreshToken } from './auth/entities/refresh-token.entity';
+import { Listing } from './listings/entities/listing.entity';
+import { ListingImage } from './listings/entities/listing-image.entity';
+import { Category } from './listings/entities/category.entity';
+import { ListingsModule } from './listings/listings.module';
 
 @Module({
   imports: [
@@ -17,11 +21,11 @@ import { RefreshToken } from './auth/entities/refresh-token.entity';
         username: config.getOrThrow('DB_USER'),
         password: config.getOrThrow('DB_PASSWORD'),
         database: config.getOrThrow('DB_NAME'),
-        entities: [User, RefreshToken],
+        entities: [User, RefreshToken, Listing, ListingImage, Category],
         synchronize: true, // auto-creates tables in dev — turn off in production
       }),
     }),
-    AuthModule,
+    AuthModule, ListingsModule
   ],
 })
 export class AppModule {}

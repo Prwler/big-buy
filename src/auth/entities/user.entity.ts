@@ -44,9 +44,11 @@ export class User {
   verificationCodeHash: string | null;
 
   @Column({ name: 'verification_code_expires_at', type: 'timestamptz', nullable: true })
+  @Exclude()
   verificationCodeExpiresAt: Date | null;
 
   @Column({ name: 'last_login_at', type: 'timestamptz', nullable: true })
+  @Exclude()
   lastLoginAt: Date | null;
 
   @CreateDateColumn({ name: 'created_at' })
