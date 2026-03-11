@@ -8,6 +8,10 @@ import { Listing } from './listings/entities/listing.entity';
 import { ListingImage } from './listings/entities/listing-image.entity';
 import { Category } from './listings/entities/category.entity';
 import { ListingsModule } from './listings/listings.module';
+import { Order } from './orders/entities/order.entity';
+import { Payment } from './orders/entities/payment.entity';
+import { OrderStatusHistory } from './orders/entities/order-status-history.entity';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
@@ -21,11 +25,11 @@ import { ListingsModule } from './listings/listings.module';
         username: config.getOrThrow('DB_USER'),
         password: config.getOrThrow('DB_PASSWORD'),
         database: config.getOrThrow('DB_NAME'),
-        entities: [User, RefreshToken, Listing, ListingImage, Category],
+        entities: [User, RefreshToken, Listing, ListingImage, Category, Order, OrderStatusHistory, Payment],
         synchronize: true, // auto-creates tables in dev — turn off in production
       }),
     }),
-    AuthModule, ListingsModule
+    AuthModule, ListingsModule, OrdersModule
   ],
 })
 export class AppModule {}
