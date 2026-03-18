@@ -59,7 +59,7 @@ export class Listing {
   @Column({ type: 'jsonb', default: '{}' })
   attributes: Record<string, any>;
 
-  // Maintained automatically by a Postgres trigger (see migration)
+  //automatically maintained by a Postgres trigger
   @Exclude()
   @Column({
     name: 'search_vector',

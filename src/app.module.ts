@@ -12,10 +12,15 @@ import { Order } from './orders/entities/order.entity';
 import { Payment } from './orders/entities/payment.entity';
 import { OrderStatusHistory } from './orders/entities/order-status-history.entity';
 import { OrdersModule } from './orders/orders.module';
+import { Review } from './reviews/entities/review.entity';
+import { ReviewsModule } from './reviews/reviews.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { AnalyticsModule } from './analytics/analytics.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    ScheduleModule.forRoot(),
     TypeOrmModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => ({
@@ -25,11 +30,11 @@ import { OrdersModule } from './orders/orders.module';
         username: config.getOrThrow('DB_USER'),
         password: config.getOrThrow('DB_PASSWORD'),
         database: config.getOrThrow('DB_NAME'),
-        entities: [User, RefreshToken, Listing, ListingImage, Category, Order, OrderStatusHistory, Payment],
+        entities: [User, RefreshToken, Listing, ListingImage, Category, Order, OrderStatusHistory, Payment, Review],
         synchronize: true, // auto-creates tables in dev — turn off in production
       }),
     }),
-    AuthModule, ListingsModule, OrdersModule
+    AuthModule, ListingsModule, OrdersModule, ReviewsModule, AnalyticsModule
   ],
 })
 export class AppModule {}

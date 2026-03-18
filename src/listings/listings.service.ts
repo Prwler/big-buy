@@ -92,7 +92,7 @@ export class ListingsService {
     });
     if (!listing) throw new NotFoundException('Listing not found');
 
-    // Fire-and-forget view count increment
+    // view count increment
     this.listingRepo.increment({ id }, 'viewCount', 1);
 
     return listing;

@@ -13,7 +13,7 @@ import { Listing } from '../listings/entities/listing.entity';
 import { User } from '../auth/entities/user.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
 
-// ── State machine ────────────────────────────────────────────────
+// ── Order State Machine ────────────────────────────────────────────────
 // pending → paid → shipped → delivered → completed
 // pending → cancelled
 // paid    → refunded

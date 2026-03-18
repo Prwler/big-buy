@@ -28,8 +28,8 @@ export class AuthService {
   ) {}
 
   // ── Register ─────────────────────────────────────────────
-  // Creates the user in an unverified state and sends a code.
-  // The user must call /auth/verify before they can log in.
+  // Creates an unverified user and receive a verification code
+  // The user must verify before they can log in.
 
   async register(dto: RegisterDto) {
     const existing = await this.userRepo.findOne({
@@ -54,7 +54,7 @@ export class AuthService {
     await this.userRepo.save(user);
 
     // In production: pass `code` to a mail service here.
-    // Returned directly in dev so you can test without an SMTP server.
+    // Used directly in dev so testing can be done without an SMTP server.
     return {
       message:
         'Registration successful. Check your email for a verification code.',
@@ -63,9 +63,8 @@ export class AuthService {
   }
 
   // ── Verify ───────────────────────────────────────────────
-  // Validates the 6-digit code. On success, marks the user as
-  // verified and immediately returns a token pair so the user
-  // is logged in without an extra round-trip.
+  // Validates the 6-digit code. If successful, marks the user as verified 
+  // Immediately returns a token pair so the user is logged in without an extra round-trip.
 
   async verify(dto: VerifyDto) {
     const user = await this.userRepo.findOne({ where: { email: dto.email } });
